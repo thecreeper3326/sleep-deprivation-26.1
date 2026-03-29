@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "sleep-deprivation",
+  "version": "1.1",
+  "name": "sleep-deprivation",
+  "description": "Sleep Deprivation by TheCreeper3326",
+  "authors": ["TheCreeper3326 'JohnSeagull'"],
+  "contact": {"Modrinth Page": "https://modrinth.com/mod/johnseagull-sleepdeprivation"},
+  "license": "All-Rights-Reserved",
+  "icon": "icon64x.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "net.creeperdev.sleepDeprivation.client.SleepDeprivationDataGenerator"
+    ],
+    "main": [
+      "net.creeperdev.sleepDeprivation.SleepDeprivation"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.5",
+    "fabric-api": "*",
+    "minecraft": "26.1"
+  }
+}
