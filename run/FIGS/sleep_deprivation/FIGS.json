@@ -1,0 +1,16 @@
+{
+  "interval": 400,
+  "intervalRandomness": 100,
+  "stageThreshold1": 12000,
+  "stageThreshold2": 24000,
+  "stageThreshold3": 32000,
+  "stageThreshold4": 40000,
+  "stageThreshold5": 50000,
+  "inventorySwapMultiplier1": 1,
+  "inventorySwapMultiplier2": 2,
+  "inventorySwapMultiplier3": 3,
+  "inventorySwapMultiplier4": 5,
+  "inventorySwapMultiplier5": 9,
+  "includeHotbar": true,
+  "note": "Refer to config_guide.txt for instructions on configuring!"
+}
