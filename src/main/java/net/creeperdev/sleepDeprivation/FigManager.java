@@ -14,8 +14,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class FigManager {
-    private static final InputStream input = SleepDeprivation.class.getResourceAsStream("/readme.txt");
-    private static final Path output = Paths.get("config/sleep_deprivation/config_guide.txt");
+    private static final InputStream template = SleepDeprivation.class.getResourceAsStream("/readme.txt");
+    private static final Path guide = Paths.get("config/sleep_deprivation/config_guide.txt");
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final File FILE = new File("config/sleep_deprivation/config.json");
     public static Figs FIGS = new Figs();
@@ -25,7 +25,7 @@ public class FigManager {
         try {
             if (!FILE.exists()) {
                 createFile();
-                logger.info("No figs found, creating them...");
+                logger.info("No figs found, creating figs...");
                 return;
             }
             FileReader reader = new FileReader(FILE);
@@ -39,8 +39,8 @@ public class FigManager {
     }
     public static void createFile() {
         try {
-            Files.createDirectories(output.getParent());
-            Files.copy(input, output, StandardCopyOption.REPLACE_EXISTING);
+            Files.createDirectories(guide.getParent());
+            Files.copy(template, guide, StandardCopyOption.REPLACE_EXISTING);
             FILE.getParentFile().mkdirs();
             FileWriter writer = new FileWriter(FILE);
             GSON.toJson(FIGS, writer);

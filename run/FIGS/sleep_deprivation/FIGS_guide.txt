@@ -1,0 +1,25 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       Guide to configuring SleepDeprivation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+  "interval" :
+  Number of ticks between events
+
+  "intervalRandomness" :
+  Amount of deviation from interval (in ticks)
+
+  "stageThreshold1-5" :
+  Amount of time that must pass without resting
+  in order to execute the specified number of
+  inventory events
+
+  "inventorySwapMultiplier1-5" :
+  Amount of inventory events that will occur in
+  the respective inventorySwap
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    WARNING:
+ Too many events happening in a very short period
+ of time can result in item deletion/duplication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
