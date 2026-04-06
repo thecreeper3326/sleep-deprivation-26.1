@@ -9,6 +9,12 @@ public class Figs {
     public int stageThreshold3 = 32000;
     public int stageThreshold4 = 50000;
     public int stageThreshold5 = 80000;
+    public boolean enableStageMessage = true;
+    public String stageMessage1 = "You feel a bit tired...";
+    public String stageMessage2 = "You think about resting...";
+    public String stageMessage3 = "You are feeling quite tired...";
+    public String stageMessage4 = "You are desperate for rest...";
+    public String stageMessage5 = "Your tiredness drives you to insanity...";
     public int inventorySwapMultiplier1 = 1;
     public int inventorySwapMultiplier2 = 2;
     public int inventorySwapMultiplier3 = 3;

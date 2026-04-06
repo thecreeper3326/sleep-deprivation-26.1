@@ -9,12 +9,16 @@
   "license": "All-Rights-Reserved",
   "icon": "icon64x.png",
   "environment": "*",
+  "accessWidener": "sleepDeprivation.accesswidener",
   "entrypoints": {
     "fabric-datagen": [
       "net.creeperdev.sleepDeprivation.client.SleepDeprivationDataGenerator"
     ],
     "main": [
       "net.creeperdev.sleepDeprivation.SleepDeprivation"
+    ],
+    "client": [
+      "net.creeperdev.sleepDeprivation.client.figManagerClient.FigManagerClient"
     ]
   },
   "depends": {
