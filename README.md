@@ -2,4 +2,4 @@
 Sleep Deprivation Mod by TheCreeper3326
 
 For pre-compiled JARs, download from:
-https://modrinth.com/mod/johnseagull-sleepdeprivation/
+https://modrinth.com/mod/johnseagull-sleep-deprivation/
