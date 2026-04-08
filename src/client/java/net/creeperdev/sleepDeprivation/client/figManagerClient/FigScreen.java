@@ -19,46 +19,69 @@ public class FigScreen extends Screen {
     protected void init() {
 
 
-        EditBox interval = new EditBox(font,10,30,((width-40)/8),20,Component.literal("e"));
+        EditBox interval = new EditBox(font,10,50,((width-40)/8),20,Component.literal("e"));
         interval.setHint(Component.literal("Interval"));
         interval.setValue(String.valueOf(Figs.interval));
         interval.setTooltip(Tooltip.create(Component.literal("The amount of time (in ticks) that will pass between the random events")));
 
-        EditBox intervalRandomness = new EditBox(font,(((width*2)/8)-(width)/8)+10,30,((width-40)/8)+10,20,Component.literal("e"));
+        EditBox intervalRandomness = new EditBox(font,(((width*2)/8)-(width)/8)+10,50,((width-40)/8)+10,20,Component.literal("e"));
         intervalRandomness.setHint(Component.literal("Randomness"));
         intervalRandomness.setValue(String.valueOf(Figs.intervalRandomness));
         intervalRandomness.setTooltip(Tooltip.create(Component.literal("The amount of deviation from the set interval")));
 
-        EditBox threshold1 = new EditBox(font,10,60,((width-40)/8),20,Component.literal("e"));
+        EditBox threshold1 = new EditBox(font,10,100,((width-40)/8),20,Component.literal("e"));
         threshold1.setHint(Component.literal("Threshold 1"));
         threshold1.setTooltip(Tooltip.create(Component.literal("The amount of time (in ticks) that is required to pass before activating this stage")));
 
-        EditBox threshold2 = new EditBox(font,10,80,((width-40)/8),20,Component.literal("e"));
+        EditBox threshold2 = new EditBox(font,10,120,((width-40)/8),20,Component.literal("e"));
         threshold2.setHint(Component.literal("Threshold 2"));
         threshold2.setTooltip(Tooltip.create(Component.literal("The amount of time (in ticks) that is required to pass before activating this stage")));
 
-        EditBox threshold3 = new EditBox(font,10,100,((width-40)/8),20,Component.literal("e"));
+        EditBox threshold3 = new EditBox(font,10,140,((width-40)/8),20,Component.literal("e"));
         threshold3.setHint(Component.literal("Threshold 3"));
         threshold3.setTooltip(Tooltip.create(Component.literal("The amount of time (in ticks) that is required to pass before activating this stage")));
 
-        EditBox threshold4 = new EditBox(font, 10, 120, ((width-40)/8), 20,Component.literal("e"));
+        EditBox threshold4 = new EditBox(font, 10, 160, ((width-40)/8), 20,Component.literal("e"));
         threshold4.setHint(Component.literal("Threshold 4"));
         threshold4.setTooltip(Tooltip.create(Component.literal("The amount of time (in ticks) that is required to pass before activating this stage")));
 
-        EditBox threshold5 = new EditBox(font,10,140,((width-40)/8),20,Component.literal("e"));
+        EditBox threshold5 = new EditBox(font,10,180,((width-40)/8),20,Component.literal("e"));
         threshold5.setHint(Component.literal("Threshold 5"));
         threshold5.setTooltip(Tooltip.create(Component.literal("The amount of time (in ticks) that is required to pass before activating this stage")));
 
+
+        EditBox inventory1 = new EditBox(font,(((width*2)/8)-(width)/8)+10,100,((width-40)/8)+5,20,Component.literal("e"));
+        inventory1.setHint(Component.literal("Intensity 1"));
+        inventory1.setTooltip(Tooltip.create(Component.literal("The intensity of inventory modification in the first stage")));
+
+        EditBox inventory2 = new EditBox(font, (((width*2)/8)-(width)/8)+10, 120, ((width-40)/8)+5, 20,Component.literal("e"));
+        inventory2.setHint(Component.literal("Intensity 2"));
+        inventory2.setTooltip(Tooltip.create(Component.literal("The intensity of inventory modification in the second stage")));
+
+        EditBox inventory3 = new EditBox(font, (((width*2)/8)-(width)/8)+10, 140, ((width-40)/8)+5, 20,Component.literal("e"));
+        inventory3.setHint(Component.literal("Intensity 3"));
+        inventory3.setTooltip(Tooltip.create(Component.literal("The intensity of inventory modification in the third stage")));
+
+        EditBox inventory4 = new EditBox(font, (((width*2)/8)-(width)/8)+10, 160, ((width-40)/8)+5, 20,Component.literal("e"));
+        inventory4.setHint(Component.literal("Intensity 4"));
+        inventory4.setTooltip(Tooltip.create(Component.literal("The intensity of inventory modification in the fourth stage")));
+
+        EditBox inventory5 = new EditBox(font, (((width*2)/8)-(width)/8)+10, 180, ((width-40)/8)+5, 20,Component.literal("e"));
+        inventory5.setHint(Component.literal("Intensity 5"));
+        inventory5.setTooltip(Tooltip.create(Component.literal("The intensity of inventory modification in the fifth stage")));
+
+
+
         Checkbox modifyHotbar = Checkbox.builder(Component.literal("Include Hotbar"), font).selected(Figs.includeHotbar).build();
         modifyHotbar.setX(120);
-        modifyHotbar.setY(180);
+        modifyHotbar.setY(205);
         modifyHotbar.setHeight(15);
         modifyHotbar.setTooltip(Tooltip.create(Component.literal("Tells whether the mod is allowed to modify the hotbar of players in addition to their inventories")));
-
+        
 
         Checkbox modifyInventory = Checkbox.builder(Component.literal("Modify Inventory"), font)
                 .onValueChange((checkbox, value) -> {
-                    if (value == true) {
+                    if (value) {
 
                         modifyHotbar.active = true;
                         modifyHotbar.setAlpha(1F);
@@ -73,82 +96,66 @@ public class FigScreen extends Screen {
                 .selected(Figs.modifyInventory)
                 .build();
         modifyInventory.setX(10);
-        modifyInventory.setY(180);
+        modifyInventory.setY(205);
         modifyInventory.setHeight(15);
         modifyInventory.setTooltip(Tooltip.create(Component.literal("Tells whether the mod is allowed to modify the inventories of players")));
 
-        EditBox inventory1 = new EditBox(font,(((width*2)/8)-(width)/8)+10,60,((width-40)/8)+5,20,Component.literal("e"));
-        inventory1.setHint(Component.literal("Intensity 1"));
-        inventory1.setTooltip(Tooltip.create(Component.literal("The intensity of inventory modification in the first stage")));
 
-        EditBox inventory2 = new EditBox(font, (((width*2)/8)-(width)/8)+10, 80, ((width-40)/8)+5, 20,Component.literal("e"));
-        inventory2.setHint(Component.literal("Intensity 2"));
-        inventory2.setTooltip(Tooltip.create(Component.literal("The intensity of inventory modification in the second stage")));
-
-        EditBox inventory3 = new EditBox(font, (((width*2)/8)-(width)/8)+10, 100, ((width-40)/8)+5, 20,Component.literal("e"));
-        inventory3.setHint(Component.literal("Intensity 3"));
-        inventory3.setTooltip(Tooltip.create(Component.literal("The intensity of inventory modification in the third stage")));
-
-        EditBox inventory4 = new EditBox(font, (((width*2)/8)-(width)/8)+10, 120, ((width-40)/8)+5, 20,Component.literal("e"));
-        inventory4.setHint(Component.literal("Intensity 4"));
-        inventory4.setTooltip(Tooltip.create(Component.literal("The intensity of inventory modification in the fourth stage")));
-
-        EditBox inventory5 = new EditBox(font, (((width*2)/8)-(width)/8)+10, 140, ((width-40)/8)+5, 20,Component.literal("e"));
-        inventory5.setHint(Component.literal("Intensity 5"));
-        inventory5.setTooltip(Tooltip.create(Component.literal("The intensity of inventory modification in the fifth stage")));
-
-        Checkbox modifyeffects = Checkbox.builder(Component.literal("Modify effects"), font).selected(Figs.modifyEffects).build();
-        modifyeffects.setX(220);
-        modifyeffects.setY(180);
-        modifyeffects.setHeight(15);
-        modifyeffects.setTooltip(Tooltip.create(Component.literal("Tells whether the mod is allowed to modify the status effects of players")));
-
-        EditBox effects1 = new EditBox(font,(((width*3)/8)-(width)/8)+13,60,((width-40)/8)+5,20,Component.literal("e"));
+        EditBox effects1 = new EditBox(font,(((width*3)/8)-(width)/8)+13,100,((width-40)/8)+5,20,Component.literal("e"));
         effects1.setHint(Component.literal("Effects 1"));
         effects1.setTooltip(Tooltip.create(Component.literal("The intenstiy of effects modification in the first stage")));
 
-        EditBox effects2 = new EditBox(font, (((width*3)/8)-(width)/8)+13, 80, ((width-40)/8)+5, 20,Component.literal("e"));
+        EditBox effects2 = new EditBox(font, (((width*3)/8)-(width)/8)+13, 120, ((width-40)/8)+5, 20,Component.literal("e"));
         effects2.setHint(Component.literal("Effects 2"));
         effects2.setTooltip(Tooltip.create(Component.literal("The intensity of effects modification in the second stage")));
 
-        EditBox effects3 = new EditBox(font, (((width*3)/8)-(width)/8)+13, 100, ((width-40)/8)+5, 20,Component.literal("e"));
+        EditBox effects3 = new EditBox(font, (((width*3)/8)-(width)/8)+13, 140, ((width-40)/8)+5, 20,Component.literal("e"));
         effects3.setHint(Component.literal("Effects 3"));
         effects3.setTooltip(Tooltip.create(Component.literal("The intensity of effects modification in the third stage")));
 
-        EditBox effects4 = new EditBox(font, (((width*3)/8)-(width)/8)+13, 120, ((width-40)/8)+5, 20,Component.literal("e"));
+        EditBox effects4 = new EditBox(font, (((width*3)/8)-(width)/8)+13, 160, ((width-40)/8)+5, 20,Component.literal("e"));
         effects4.setHint(Component.literal("Effects 4"));
         effects4.setTooltip(Tooltip.create(Component.literal("The intensity of effects modification in the fourth stage")));
 
-        EditBox effects5 = new EditBox(font, (((width*3)/8)-(width)/8)+13, 140, ((width-40)/8)+5, 20,Component.literal("e"));
+        EditBox effects5 = new EditBox(font, (((width*3)/8)-(width)/8)+13, 180, ((width-40)/8)+5, 20,Component.literal("e"));
         effects5.setHint(Component.literal("Effects 5"));
         effects5.setTooltip(Tooltip.create(Component.literal("The intensity of effects modification in the fifth stage")));
 
-        Checkbox modifyMessage = Checkbox.builder(Component.literal("Send Message"), font).selected(Figs.enableStageMessage).build();
-        modifyMessage.setX(320);
-        modifyMessage.setY(180);
-        modifyMessage.setHeight(15);
-        modifyMessage.setTooltip(Tooltip.create(Component.literal("Tells whether the mod should alert players when they pass a threshold")));
 
-        EditBox Message1 = new EditBox(font,(((width*4)/8)-(width)/8)+18,60, (int) (((width)/1.8)),20,Component.literal("e"));
+        Checkbox modifyeffects = Checkbox.builder(Component.literal("Modify effects"), font).selected(Figs.modifyEffects).build();
+        modifyeffects.setX(220);
+        modifyeffects.setY(205);
+        modifyeffects.setHeight(15);
+        modifyeffects.setTooltip(Tooltip.create(Component.literal("Tells whether the mod is allowed to modify the status effects of players")));
+        
+        
+        EditBox Message1 = new EditBox(font,(((width*4)/8)-(width)/8)+18,100, (int) (((width)/1.8)),20,Component.literal("e"));
         Message1.setHint(Component.literal("Message 1"));
         Message1.setTooltip(Tooltip.create(Component.literal("The message for the first stage")));
 
-        EditBox Message2 = new EditBox(font, (((width*4)/8)-(width)/8)+18, 80, (int) (((width)/1.8)), 20,Component.literal("e"));
+        EditBox Message2 = new EditBox(font, (((width*4)/8)-(width)/8)+18, 120, (int) (((width)/1.8)), 20,Component.literal("e"));
         Message2.setHint(Component.literal("Message 2"));
         Message2.setTooltip(Tooltip.create(Component.literal("The message for the second stage")));
 
-        EditBox Message3 = new EditBox(font, (((width*4)/8)-(width)/8)+18, 100, (int) (((width)/1.8)), 20,Component.literal("e"));
+        EditBox Message3 = new EditBox(font, (((width*4)/8)-(width)/8)+18, 140, (int) (((width)/1.8)), 20,Component.literal("e"));
         Message3.setHint(Component.literal("Message 3"));
         Message3.setTooltip(Tooltip.create(Component.literal("The message for the third stage")));
 
-        EditBox Message4 = new EditBox(font, (((width*4)/8)-(width)/8)+18, 120, (int) (((width)/1.8)), 20,Component.literal("e"));
+        EditBox Message4 = new EditBox(font, (((width*4)/8)-(width)/8)+18, 160, (int) (((width)/1.8)), 20,Component.literal("e"));
         Message4.setHint(Component.literal("Message 4"));
         Message4.setTooltip(Tooltip.create(Component.literal("The message for the fourth stage")));
 
-        EditBox Message5 = new EditBox(font, (((width*4)/8)-(width)/8)+18, 140, (int) (((width)/1.8)), 20,Component.literal("e"));
+        EditBox Message5 = new EditBox(font, (((width*4)/8)-(width)/8)+18, 180, (int) (((width)/1.8)), 20,Component.literal("e"));
         Message5.setHint(Component.literal("Message 5"));
         Message5.setTooltip(Tooltip.create(Component.literal("The message for the fifth stage")));
 
+        Checkbox modifyMessage = Checkbox.builder(Component.literal("Send Message"), font).selected(Figs.enableStageMessage).build();
+        modifyMessage.setX(320);
+        modifyMessage.setY(205);
+        modifyMessage.setHeight(15);
+        modifyMessage.setTooltip(Tooltip.create(Component.literal("Tells whether the mod should alert players when they pass a threshold")));
+
+        
 
         Message1.setMaxLength(64);
         Message2.setMaxLength(64);
@@ -190,14 +197,11 @@ public class FigScreen extends Screen {
             );
                     
                     
-        }).bounds(width-130, height-35, 120, 20).build();
+        }).bounds(width-130, 10, 120, 20).build();
 
         Button close = Button.builder(Component.literal("Discard"), (btn) -> {
             this.onClose();
-
-
-
-        }).bounds(width-255, height-35, 120, 20).build();
+        }).bounds(width-255, 10, 120, 20).build();
         {
             threshold1.setValue(String.valueOf(Figs.stageThreshold1));
             threshold2.setValue(String.valueOf(Figs.stageThreshold2));
@@ -223,6 +227,9 @@ public class FigScreen extends Screen {
 
         StringWidget title = new StringWidget(10,10,1000,15,Component.literal("SleepDeprivation - Fig menu"),font);
         {
+
+            System.out.println(width);
+            System.out.println(height);
             this.addRenderableWidget(close);
             this.addRenderableWidget(title);
             this.addRenderableWidget(interval);
@@ -253,7 +260,13 @@ public class FigScreen extends Screen {
             this.addRenderableWidget(Message5);
             this.addRenderableWidget(modifyMessage);
             this.addRenderableWidget(apply);
-
+            this.addRenderableWidget(new StringWidget(10,80,1000,15,Component.literal("Threshold"),font));
+            this.addRenderableWidget(new StringWidget((((width*4)/8)-(width)/8)+18,80,1000,15,Component.literal("Message"),font));
+            this.addRenderableWidget(new StringWidget((((width*3)/8)-(width)/8)+13,80,1000,15,Component.literal("Effects"),font));
+            this.addRenderableWidget(new StringWidget((((width*2)/8)-(width)/8)+10,80,1000,15,Component.literal("Inventory"),font));
+            this.addRenderableWidget(new StringWidget(10,30,1000,15,Component.literal("Interval"),font));
+            this.addRenderableWidget(new StringWidget((((width*2)/8)-(width)/8)+10,30,1000,15,Component.literal("Randomness"),font));
+            this.addRenderableWidget(new StringWidget(1,height-14,1000,15,Component.literal("SleepDeprivation v2.1 by TheCreeper3326").withStyle(ChatFormatting.GRAY,ChatFormatting.ITALIC),font));
 
         }
 
