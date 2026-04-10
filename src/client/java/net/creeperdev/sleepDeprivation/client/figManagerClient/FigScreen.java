@@ -126,7 +126,7 @@ public class FigScreen extends Screen {
         modifyeffects.setX(220);
         modifyeffects.setY(205);
         modifyeffects.setHeight(15);
-        modifyeffects.setTooltip(Tooltip.create(Component.literal("Tells whether the mod is allowed to modify the status effects of players")));
+        modifyeffects.setTooltip(Tooltip.create(Component.literal("Tells whether the mod is allowed to modify the status effects of players. 0 = off, 1 = mild, 10 = insanity")));
         
         
         EditBox Message1 = new EditBox(font,(((width*4)/8)-(width)/8)+18,100, (int) (((width)/1.8)),20,Component.literal("e"));
@@ -260,7 +260,8 @@ public class FigScreen extends Screen {
             this.addRenderableWidget(Message5);
             this.addRenderableWidget(modifyMessage);
             this.addRenderableWidget(apply);
-            this.addRenderableWidget(new StringWidget(10,80,1000,15,Component.literal("Threshold"),font));
+            StringWidget threshold = new StringWidget(10,80,1000,15,Component.literal("Threshold"),font);
+            this.addRenderableWidget(threshold);
             this.addRenderableWidget(new StringWidget((((width*4)/8)-(width)/8)+18,80,1000,15,Component.literal("Message"),font));
             this.addRenderableWidget(new StringWidget((((width*3)/8)-(width)/8)+13,80,1000,15,Component.literal("Effects"),font));
             this.addRenderableWidget(new StringWidget((((width*2)/8)-(width)/8)+10,80,1000,15,Component.literal("Inventory"),font));
