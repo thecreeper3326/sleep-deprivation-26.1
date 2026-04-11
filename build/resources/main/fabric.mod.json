@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "sleep-deprivation",
+  "version": "2.1",
+  "name": "sleep-deprivation",
+  "description": "The longer you go without rest, the weirder things become.",
+  "authors": ["TheCreeper3326 'JohnSeagull'"],
+  "contact": {"Modrinth Page": "https://modrinth.com/mod/johnseagull-sleep-deprivation"},
+  "license": "All-Rights-Reserved",
+  "icon": "icon64x.png",
+  "environment": "*",
+  "accessWidener": "sleepDeprivation.accesswidener",
+  "entrypoints": {
+    "fabric-datagen": [
+      "net.creeperdev.sleepDeprivation.client.SleepDeprivationDataGenerator"
+    ],
+    "main": [
+      "net.creeperdev.sleepDeprivation.SleepDeprivation"
+    ],
+    "client": [
+      "net.creeperdev.sleepDeprivation.client.figManagerClient.FigManagerClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.5",
+    "fabric-api": "*",
+    "minecraft": "26.1"
+  }
+}
