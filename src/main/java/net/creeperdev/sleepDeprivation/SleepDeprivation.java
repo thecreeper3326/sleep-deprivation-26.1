@@ -191,7 +191,6 @@ public class SleepDeprivation implements ModInitializer {
         });
         logger.info("Initialization complete.");
 
-
     }
 
     public static void swapItems(ServerPlayer player, int times) {
