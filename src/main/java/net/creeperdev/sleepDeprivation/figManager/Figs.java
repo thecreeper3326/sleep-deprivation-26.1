@@ -1,4 +1,4 @@
-package net.creeperdev.sleepDeprivation;
+package net.creeperdev.sleepDeprivation.figManager;
 
 public class Figs {
     public int interval  = 400;
