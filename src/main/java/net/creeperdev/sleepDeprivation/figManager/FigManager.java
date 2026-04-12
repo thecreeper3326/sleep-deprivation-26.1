@@ -2,7 +2,6 @@ package net.creeperdev.sleepDeprivation.figManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.creeperdev.sleepDeprivation.Figs;
 import net.creeperdev.sleepDeprivation.SleepDeprivation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +9,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 public class FigManager {
 
