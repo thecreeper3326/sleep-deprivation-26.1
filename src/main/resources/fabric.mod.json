@@ -18,7 +18,7 @@
       "net.creeperdev.sleepDeprivation.SleepDeprivation"
     ],
     "client": [
-      "net.creeperdev.sleepDeprivation.client.figManagerClient.FigManagerClient"
+      "net.creeperdev.sleepDeprivation.client.SleepDeprivationClient"
     ]
   },
   "depends": {
