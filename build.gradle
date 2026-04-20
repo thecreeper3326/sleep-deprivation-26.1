@@ -9,8 +9,6 @@ buildscript {
         classpath 'com.gradleup.shadow:shadow-gradle-plugin:9.4.1'
     }
 }
-
-
 plugins {
     id 'net.fabricmc.fabric-loom' version "${loom_version}"
     id 'maven-publish'
@@ -22,11 +20,13 @@ configurations {
 }
 tasks.named('shadowJar', ShadowJar) {
     configurations = []
+    from sourceSets.main.output
+    from sourceSets.client.output
     from {
         project.configurations.shadowMe.collect { it.isDirectory() ? it : zipTree(it) }
     }
-    archiveClassifier = 'shaded'
-    relocate 'net.creeperdev.figmanager', "net.creeperdev.${project.archives_base_name}.libs.figmanager"
+    archiveClassifier = 'r'
+    relocate 'net.creeperdev.figManager', "net.creeperdev.${project.archives_base_name}.libs.figManager"
     mergeServiceFiles()
 }
 version = project.mod_version
@@ -53,10 +53,19 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     shadowMe("net.creeperdev:figmanager:${project.fig_version}") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc"
+        exclude group: "com.terraformersmc"
     }
+}
+repositories {
+    maven {
+        name = "Terraformers"
+        url = "https://maven.terraformersmc.com/releases"
+    }
+    gradlePluginPortal()
 }
 processResources {
     inputs.property "version", project.version
