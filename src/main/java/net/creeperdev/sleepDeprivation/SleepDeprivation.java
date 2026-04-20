@@ -1,14 +1,11 @@
 package net.creeperdev.sleepDeprivation;
 
 import net.creeperdev.figManager.FigManager;
+import net.creeperdev.figManager.*;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.permissions.Permissions;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -16,65 +13,81 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Field;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static org.apache.commons.lang3.RandomUtils.*;
 
 public class SleepDeprivation implements ModInitializer {
     public static int counter = 0;
     public static final Logger logger = LoggerFactory.getLogger("Sleep Deprivation - Main");
+    record Stage(Field threshold, Field message, Field potency, Field inventory) {}
+    private static final Map<Integer, Stage> stages = new LinkedHashMap<>();
 
+    public static void initCache() {
+        Class<?> j = Figs.instance.getClass();
+
+        for (int i = 1; i <= 10; i++) {
+            try {
+                stages.put(i, new Stage(j.getDeclaredField("stageThreshold" + i), j.getDeclaredField("stageMessage" + i), j.getDeclaredField("potency" + i), j.getDeclaredField("inventorySwapMultiplier" + i)));
+                stages.get(i).threshold().setAccessible(true);
+                stages.get(i).message().setAccessible(true);
+                stages.get(i).potency().setAccessible(true);
+                stages.get(i).inventory().setAccessible(true);
+            } catch (NoSuchFieldException e) {
+                logger.error("Smth didnt go too well while processing stage " + i);
+            }
+        }
+    }
     @Override
     public void onInitialize() {
         logger.info("Initializing...");
         FigManager e = new FigManager();
+        initCache();
         e.init("sleep_deprivation", "2.4", Figs.instance);
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             counter++;
-            Figs f = (Figs) FigManager.FIGS;
-            int time = nextInt(f.interval.value, f.interval.value + f.intervalRandomness.value);
+            Figs f = Figs.instance;
+            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                int awakeTime = player.getStats().getValue(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
 
-            if (counter > time) {
-                for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-                
-                    int awakeTime = player.getStats().getValue(Stats.CUSTOM.get(Stats.TIME_SINCE_REST));
-                    if (f.enableStageMessage.value) {
-                        if (awakeTime > f.stageThreshold1.value - time && awakeTime < f.stageThreshold1.value + time) {
-                            player.sendSystemMessage(Component.literal(f.stageMessage1.value), true);
+                for (var entry : stages.entrySet()) {
+                    Stage fields = entry.getValue();
+                    try {
+                        int threshold = ((IntFig) fields.threshold().get(f)).value;
+                        if (threshold > -1) {
+                            if (awakeTime == threshold && f.enableStageMessage.value) {
+                                String msg = ((StringFig) fields.message().get(f)).value;
+                                player.sendSystemMessage(Component.literal(msg), true);
+                            }
+                            if (counter > nextInt(f.interval.value, f.interval.value + f.intervalRandomness.value)) {
+                                if (awakeTime >= threshold) {
+                                    Stage nextFields = stages.get(entry.getKey() + 1);
+                                    boolean isLastStage = (nextFields == null);
+
+                                    int nextThreshold = isLastStage ? Integer.MAX_VALUE : ((IntFig) nextFields.threshold().get(f)).value;
+
+                                    if (awakeTime < nextThreshold) {
+                                        if (f.modifyEffects.value) {
+                                            randomEffects(player, ((IntFig) fields.potency().get(f)).value);
+                                        }
+                                        if (f.modifyInventory.value) {
+                                            swapItems(player, ((IntFig) fields.inventory().get(f)).value);
+                                        }
+                                    }
+                                }
+                            }
                         }
-                        if (awakeTime > f.stageThreshold2.value - time && awakeTime < f.stageThreshold2.value + time) {
-                            player.sendSystemMessage(Component.literal(f.stageMessage2.value), true);
-                        }
-                        if (awakeTime > f.stageThreshold3.value - time && awakeTime < f.stageThreshold3.value + time) {
-                            player.sendSystemMessage(Component.literal(f.stageMessage3.value), true);
-                        }
-                        if (awakeTime > f.stageThreshold4.value - time && awakeTime < f.stageThreshold4.value + time) {
-                            player.sendSystemMessage(Component.literal(f.stageMessage4.value), true);
-                        }
-                        if (awakeTime > f.stageThreshold5.value - time && awakeTime < f.stageThreshold5.value + time) {
-                            player.sendSystemMessage(Component.literal(f.stageMessage5.value), true);
-                        }
-                    }
-                    if (awakeTime > f.stageThreshold1.value && awakeTime < f.stageThreshold2.value) {
-                        swapItems(player, f.inventorySwapMultiplier1.value);
-                        randomEffects(player, f.potency1.value);
-                    }
-                    if (awakeTime > f.stageThreshold2.value && awakeTime < f.stageThreshold3.value) {
-                        swapItems(player, f.inventorySwapMultiplier2.value);
-                        randomEffects(player, f.potency2.value);
-                    }
-                    if (awakeTime > f.stageThreshold3.value && awakeTime < f.stageThreshold4.value) {
-                        swapItems(player, f.inventorySwapMultiplier3.value);
-                        randomEffects(player, f.potency3.value);
-                    }
-                    if (awakeTime > f.stageThreshold4.value && awakeTime < f.stageThreshold5.value) {
-                        swapItems(player, f.inventorySwapMultiplier4.value);
-                        randomEffects(player, f.potency4.value);
-                    }
-                    if (awakeTime > f.stageThreshold5.value) {
-                        swapItems(player, f.inventorySwapMultiplier5.value);
-                        randomEffects(player, f.potency5.value);
+                    } catch (IllegalAccessException oops) {
+                        logger.error("oops:");
+                        logger.error(oops.getMessage());
                     }
                 }
+            }
+            if (counter > f.interval.value + f.intervalRandomness.value) {
                 counter = 0;
             }
         });

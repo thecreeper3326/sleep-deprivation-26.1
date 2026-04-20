@@ -9,6 +9,6 @@ public class SleepDeprivationClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         FigManagerClient figManagerClient = new FigManagerClient();
-        figManagerClient.init(Figs.instance);
+        figManagerClient.init(Figs.instance, 0.4f);
     }
 }
